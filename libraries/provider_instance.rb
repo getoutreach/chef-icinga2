@@ -122,7 +122,7 @@ class Chef
           end
         end
 
-        # separate object and teplate icinga definitions
+        # separate object and template icinga definitions
         icinga2_objects_grouped = icinga2_objects.group_by { |_k, v| v['object_class'] }
         # now, this might be better refactored into a simple function with a simple loop, because I don't think I'll be
         # able to understand immediatelly after a halt year or so

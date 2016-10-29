@@ -15,6 +15,14 @@ class Chef
         @name = name
       end
     end
+
+    def source_dir(arg = nil)
+      set_or_return(
+        :path, arg,
+        :kind_of => String,
+        :required => false
+      )
+    end
   end
 end
 
@@ -30,7 +38,17 @@ class Chef
       end
 
       action :enable do
-        fail "feature not available - #{new_resource.name}" unless ::File.exist?(::File.join(node['icinga2']['features_available_dir'], "#{new_resource.name}.conf"))
+        feature_path = ::File.join(node['icinga2']['features_available_dir'], "#{new_resource.name}.conf")
+
+        if new_resource.source_dir
+          source_path = ::File.join(new_resource.source_dir, "#{new_resource.name}.conf")
+          if source_path == feature_path
+            raise "source_path must differ from symlink path: #{source_path}"
+          end
+          ::File.symlink(source_path, feature_path) unless ::File.exist?(feature_path)
+        end
+
+        fail "feature not available - #{new_resource.name}" unless ::File.exist?(feature_path)
 
         unless ::File.exist?(::File.join(node['icinga2']['features_enabled_dir'], "#{new_resource.name}.conf"))
           execute "enable_feature_#{new_resource.name}" do
