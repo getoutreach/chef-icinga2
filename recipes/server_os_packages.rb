@@ -25,16 +25,16 @@ case node['platform_family']
 when 'debian'
   case node['lsb']['codename']
   when 'trusty'
-    # package libjpeg62-dev conflicts with libgd2-xpm-dev
+    # package libjpeg62-dev conflicts with libgd-dev
     # perhaps can be removed.
     os_packages = %w(g++ mailutils php5 php5-cli php5-fpm build-essential
-                     libgd2-xpm-dev libjpeg62 libpng12-0
+                     libgd-dev libjpeg62 libpng12-0
                      libpng12-dev libapache2-mod-php5 imagemagick
                      php5-imagick php-pear php5-xmlrpc php5-xsl php5-mysql
                      php-soap php5-gd php5-ldap php5-pgsql php5-intl)
   when 'xenial'
     os_packages = %w(g++ mailutils php7.0 php7.0-cli php7.0-fpm build-essential
-                     libgd2-xpm-dev libjpeg62 libpng12-0
+                     libgd-dev libjpeg62 libpng12-0
                      libpng12-dev libapache2-mod-php7.0 imagemagick
                      php7.0-imagick php-pear php7.0-xmlrpc php7.0-xsl php7.0-mysql
                      php-soap php7.0-gd php7.0-ldap php7.0-pgsql php7.0-intl)
