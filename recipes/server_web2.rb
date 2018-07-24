@@ -22,7 +22,9 @@ cli_package_version = node['icinga2']['web2']['version']['icingacli'] + node['ic
 web2_package_version = node['icinga2']['web2']['version']['icingaweb2'] + node['icinga2']['icinga2_version_suffix']
 web2_source_version = 'v' + node['icinga2']['web2']['version']['icingaweb2'].split('-')[0]
 
-if node.attribute?('time') && node['time'].attribute?('timezone')
+if node.attribute?('php') && node['php'].attribute?('timezone')
+  timezone = node['php']['timezone']
+elsif node.attribute?('time') && node['time'].attribute?('timezone')
   timezone = node['time']['timezone']
 else
   timezone = 'UTC'
